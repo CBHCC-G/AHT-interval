@@ -3,36 +3,42 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CBHCC AHT Interval Viewer</title>
+  <title>CBHCC CSV Viewer</title>
 
-  <!-- DataTables CSS (adds search/sort/paging UI styling) -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
-
   <style>
     body { font-family: Arial, sans-serif; padding: 16px; }
     code { background:#f6f6f6; padding: 2px 6px; border-radius: 4px; }
+
+    /* Light red highlight for the entire row */
+    .high-red-row td { background-color: #ffd6d6 !important; }
   </style>
 </head>
 <body>
-  <h1>CBH CC AHT Interval Report as of 4 PM EST</h1>
+  <h1>CBHCC CSV Viewer</h1>
   <p>Source: <code>cbhcc.csv</code></p>
 
   <div id="status">Loading...</div>
   <table id="tbl" class="display" style="width:100%"></table>
 
-  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-  <!-- DataTables JS -->
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
-
-  <!-- Papa Parse (CSV parser) -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <script>
     const CSV_FILE = "cbhcc.csv";
+    const THRESHOLD = 490;
 
-    Papa.parse(CSV_FILE + "?v=" + Date.now(), {  // cache-buster so updates show up
+    // Column #5 (1-based) => index 4 (0-based)
+    const COL_INDEX = 4;
+
+    function toNumber(x) {
+      // Handles "1,234", "$123", blanks, etc.
+      const n = Number(String(x ?? "").replace(/[^0-9.-]/g, ""));
+      return Number.isFinite(n) ? n : null;
+    }
+
+    Papa.parse(CSV_FILE + "?v=" + Date.now(), {
       download: true,
       header: true,
       skipEmptyLines: true,
@@ -40,10 +46,7 @@
         const data = results.data;
         const fields = results.meta.fields || [];
 
-        const columns = fields.map(name => ({
-          title: name,
-          data: name
-        }));
+        const columns = fields.map(name => ({ title: name, data: name }));
 
         document.getElementById("status").textContent =
           `Loaded ${data.length} row(s) from ${CSV_FILE}.`;
@@ -52,7 +55,17 @@
           data,
           columns,
           pageLength: 25,
-          scrollX: true
+          scrollX: true,
+
+          createdRow: function(row, rowData) {
+            const colName = fields[COL_INDEX];     // the header name of column #5
+            const value = toNumber(rowData[colName]);
+
+            if (value !== null && value > THRESHOLD) {
+              // Highlight the entire row
+              $(row).addClass("high-red-row");
+            }
+          }
         });
       },
       error: function(err) {

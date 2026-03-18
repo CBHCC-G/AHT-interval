@@ -3,21 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AHT Interval Report</title>
+  <title>CBHCC AHT Interval Viewer</title>
 
-  <!-- DataTables CSS -->
+  <!-- DataTables CSS (adds search/sort/paging UI styling) -->
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.min.css">
+
   <style>
     body { font-family: Arial, sans-serif; padding: 16px; }
+    code { background:#f6f6f6; padding: 2px 6px; border-radius: 4px; }
   </style>
 </head>
 <body>
   <h1>CBH CC AHT Interval Report as of 10 AM EST</h1>
   <p>Source: <code>cbhcc.csv</code></p>
 
+  <div id="status">Loading...</div>
   <table id="tbl" class="display" style="width:100%"></table>
 
-  <!-- jQuery (required by DataTables in many setups) -->
+  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
   <!-- DataTables JS -->
@@ -27,27 +30,35 @@
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
   <script>
-    // Load CSV, build HTML table, then activate DataTables
-    Papa.parse("cbhcc.csv", {
+    const CSV_FILE = "cbhcc.csv";
+
+    Papa.parse(CSV_FILE + "?v=" + Date.now(), {  // cache-buster so updates show up
       download: true,
       header: true,
       skipEmptyLines: true,
       complete: function(results) {
         const data = results.data;
-        const columns = results.meta.fields.map(name => ({ title: name, data: name }));
+        const fields = results.meta.fields || [];
 
-        // Create DataTable
+        const columns = fields.map(name => ({
+          title: name,
+          data: name
+        }));
+
+        document.getElementById("status").textContent =
+          `Loaded ${data.length} row(s) from ${CSV_FILE}.`;
+
         new DataTable("#tbl", {
           data,
           columns,
-          pageLength: 25
+          pageLength: 25,
+          scrollX: true
         });
       },
       error: function(err) {
         console.error(err);
-        document.body.insertAdjacentHTML("beforeend",
-          `<p style="color:red;">Failed to load CSV: ${err}</p>`
-        );
+        document.getElementById("status").textContent =
+          `Failed to load ${CSV_FILE}: ${err.message || err}`;
       }
     });
   </script>

@@ -1,11 +1,10 @@
-﻿LOB,Supervisor,Name,Sum of Handle,Average of AHT,Average of ACW,Average of Total Hold (sec),Average of TR%
+﻿LOB,Supervisor,Name,Handled,AHT,ACW Ave,Hold Ave,TR% Ave
 Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Mifuel, Merl",2,824,30,0,33%
 Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Santiago, Jomer",3,287,30,0,50%
 Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Mabilog, Cherry rose",2,163,4,0,0%
 Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Villalon, Anj",5,161,30,0,17%
 Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Espinosa, Nicole",1,70,6,0,0%
 Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Tabunlupa, Mary Hope",1,51,8,0,0%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Gequilasao, Joan",--,--,--,0,--
 Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Navarez, Adrian",2,1320,6,392,50%
 Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Losaria, Nesty",3,839,30,0,0%
 Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Pomaloy, Rachel Ann",3,383,13,3,25%
@@ -34,18 +33,3 @@ Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Sayco, Peachy",6,207,30,0,
 Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Diaz, Mary Donna Mel",1,192,30,0,100%
 Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Bullag, Peter John",1,171,4,0,0%
 Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Hormillosa, Leonard",5,89,11,0,0%
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,
-,,,,,,,

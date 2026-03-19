@@ -21,10 +21,11 @@
     /* Keep tables from looking cramped when wide */
     table.dataTable tbody td { vertical-align: middle; }
 
-    /* Fixed "Grand Total" footer styling */
+    /* Fixed "Grand Total" footer styling (dark blue) */
     tfoot tr.grand-total-row td{
-      background: #fff3cd !important; /* light yellow */
-      font-weight: 700;
+      background: #0b2a5b !important;  /* dark blue */
+      color: #ffffff !important;
+      font-weight: 800;
     }
   </style>
 </head>
@@ -109,7 +110,7 @@
 
     // Grand Total detection (Overall table only)
     const GRAND_TOTAL_TEXT = "Grand Total";
-    const GRAND_TOTAL_COL_INDEX = 0; // which column contains "Grand Total" text (0-based)
+    const GRAND_TOTAL_COL_INDEX = 1; // column 2 (1-based) => index 1 (0-based)
 
     // Interval table: highlight if 5th column > 490
     const INTERVAL_CSV = "cbhcc.csv";
@@ -211,23 +212,19 @@
           const fields = results.meta.fields || [];
           const columns = fields.map(name => ({ title: name, data: name }));
 
-          // Find the grand total row (based on text match in a specific column)
           const gtFieldName = fields[GRAND_TOTAL_COL_INDEX];
-          const grandTotalRow = allRows.find(r =>
-            String(r?.[gtFieldName] ?? "").trim().toLowerCase() === GRAND_TOTAL_TEXT.toLowerCase()
-          );
 
-          // Remove it from DataTables data so it doesn't move/filter/page
-          const data = allRows.filter(r =>
-            String(r?.[gtFieldName] ?? "").trim().toLowerCase() !== GRAND_TOTAL_TEXT.toLowerCase()
-          );
+          const isGrandTotal = (r) =>
+            String(r?.[gtFieldName] ?? "").trim().toLowerCase() === GRAND_TOTAL_TEXT.toLowerCase();
+
+          const grandTotalRow = allRows.find(isGrandTotal);
+          const data = allRows.filter(r => !isGrandTotal(r));
 
           // Build the footer row HTML (always visible)
           if (grandTotalRow) {
             const tds = fields.map(f => `<td>${(grandTotalRow[f] ?? "").toString()}</td>`).join("");
             tfootEl.innerHTML = `<tr class="grand-total-row">${tds}</tr>`;
           } else {
-            // If no Grand Total row exists, clear footer
             tfootEl.innerHTML = "";
           }
 
@@ -240,7 +237,6 @@
             columns,
             pageLength: 25,
             scrollX: true,
-            // keep your highlighting rule
             createdRow: function(row, rowData) {
               const colName = fields[OVERALL_COL_INDEX];
               const value = toNumber(rowData[colName]);

@@ -27,16 +27,6 @@
       color: #ffffff !important;
       font-weight: 800;
     }
-
-    /* Expand/collapse control column */
-    td.dt-control {
-      cursor: pointer;
-      text-align: center;
-      width: 28px;
-      font-weight: 900;
-      user-select: none;
-    }
-    tr.dt-hasChild td.dt-control { color: #0b2a5b; }
   </style>
 </head>
 <body>
@@ -71,7 +61,7 @@
       <div class="card-body">
         <div class="d-flex flex-wrap align-items-end justify-content-between gap-2">
           <div>
-            <h2 class="h5 mb-1">CBHCC AHT Interval (Collapsible by Supervisor)</h2>
+            <h2 class="h5 mb-1">CBHCC AHT Interval</h2>
             <div class="text-muted">
               As of <span id="intervalAsOf">loading…</span> ET
               <span class="d-block small">(based on last commit time of <code>cbhcc.csv</code>)</span>
@@ -92,7 +82,6 @@
 
     <div class="text-muted small mt-3">
       Tip: Use the search box above each table to filter results; click a column header to sort.
-      Click the <strong>+</strong> next to a supervisor to expand agents.
     </div>
   </div>
 
@@ -123,36 +112,13 @@
     const GRAND_TOTAL_TEXT = "Grand Total";
     const GRAND_TOTAL_COL_INDEX = 1; // column 2 (1-based) => index 1 (0-based)
 
-    // Interval table source
+    // Interval table: highlight if 5th column > 490
     const INTERVAL_CSV = "cbhcc.csv";
-
-    // Interval grouping columns
-    const SUP_COL = "Supervisor";
-    const AGENT_COL = "Agent Name";              // change to "Agent Id" if preferred
-    const ANSW_COL = "Answered Calls";           // denominator
-    const HANDLE_COL = "Total Handle Time (sec)";// numerator (seconds)
+    const INTERVAL_COL_INDEX = 4; // 5th column
 
     function toNumber(x) {
       const n = Number(String(x ?? "").replace(/[^0-9.-]/g, ""));
       return Number.isFinite(n) ? n : null;
-    }
-
-    function esc(s) {
-      return String(s ?? "").replace(/[&<>"']/g, m => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[m]));
-    }
-
-    function fmtNum(n) {
-      if (n === null || n === undefined || !Number.isFinite(n)) return "";
-      const isInt = Number.isInteger(n);
-      return n.toLocaleString(undefined, { maximumFractionDigits: isInt ? 0 : 2 });
-    }
-
-    // Weighted AHT in seconds
-    function calcAHT(totalHandleSec, answeredCalls) {
-      if (!answeredCalls) return null;
-      return totalHandleSec / answeredCalls;
     }
 
     function setToday() {
@@ -196,6 +162,41 @@
       }
     }
 
+    function renderCSVTable({ csvFile, tableSelector, statusId, highlightColIndex }) {
+      const statusEl = document.getElementById(statusId);
+
+      Papa.parse(csvFile + "?v=" + Date.now(), {
+        download: true,
+        header: true,
+        skipEmptyLines: true,
+        complete: function(results) {
+          const data = results.data;
+          const fields = results.meta.fields || [];
+          const columns = fields.map(name => ({ title: name, data: name }));
+
+          statusEl.className = "alert alert-success py-2 px-3 mt-3 mb-3";
+          statusEl.textContent = `Loaded ${data.length} row(s) from ${csvFile}.`;
+
+          new DataTable(tableSelector, {
+            data,
+            columns,
+            pageLength: 25,
+            scrollX: true,
+            createdRow: function(row, rowData) {
+              const colName = fields[highlightColIndex];
+              const value = toNumber(rowData[colName]);
+              if (value !== null && value > THRESHOLD) $(row).addClass("high-red-row");
+            }
+          });
+        },
+        error: function(err) {
+          console.error(err);
+          statusEl.className = "alert alert-danger py-2 px-3 mt-3 mb-3";
+          statusEl.textContent = `Failed to load ${csvFile}: ${err.message || err}`;
+        }
+      });
+    }
+
     // Special renderer: keep Grand Total as fixed footer (Overall table)
     function renderOverallWithFixedGrandTotal() {
       const statusEl = document.getElementById("statusOverall");
@@ -221,7 +222,7 @@
 
           // Build the footer row HTML (always visible)
           if (grandTotalRow) {
-            const tds = fields.map(f => `<td>${esc((grandTotalRow[f] ?? "").toString())}</td>`).join("");
+            const tds = fields.map(f => `<td>${(grandTotalRow[f] ?? "").toString()}</td>`).join("");
             tfootEl.innerHTML = `<tr class="grand-total-row">${tds}</tr>`;
           } else {
             tfootEl.innerHTML = "";
@@ -230,12 +231,6 @@
           statusEl.className = "alert alert-success py-2 px-3 mt-3 mb-3";
           statusEl.textContent =
             `Loaded ${data.length} row(s) from ${OVERALL_CSV}.` + (grandTotalRow ? " (Grand Total fixed.)" : " (No Grand Total row found.)");
-
-          if ($.fn.dataTable.isDataTable("#tblOverall")) {
-            $("#tblOverall").DataTable().destroy();
-            $("#tblOverall").empty();
-            $("#tblOverall").append("<tfoot></tfoot>");
-          }
 
           new DataTable("#tblOverall", {
             data,
@@ -257,177 +252,18 @@
       });
     }
 
-    function buildSupervisorGroups(rows) {
-      const bySup = new Map();
-
-      for (const r of rows) {
-        const sup = String(r[SUP_COL] ?? "Unknown").trim() || "Unknown";
-        const agent = String(r[AGENT_COL] ?? "Unknown").trim() || "Unknown";
-
-        const answered = toNumber(r[ANSW_COL]) ?? 0;
-        const handleSec = toNumber(r[HANDLE_COL]) ?? 0;
-
-        if (!bySup.has(sup)) {
-          bySup.set(sup, {
-            supervisor: sup,
-            answeredCalls: 0,
-            totalHandleSec: 0,
-            agents: new Map()
-          });
-        }
-
-        const g = bySup.get(sup);
-        g.answeredCalls += answered;
-        g.totalHandleSec += handleSec;
-
-        if (!g.agents.has(agent)) {
-          g.agents.set(agent, { agent, answeredCalls: 0, totalHandleSec: 0 });
-        }
-        const a = g.agents.get(agent);
-        a.answeredCalls += answered;
-        a.totalHandleSec += handleSec;
-      }
-
-      const supRows = [];
-      for (const g of bySup.values()) {
-        const agentRows = [...g.agents.values()]
-          .map(a => ({
-            agent: a.agent,
-            answeredCalls: a.answeredCalls,
-            totalHandleSec: a.totalHandleSec,
-            ahtSec: calcAHT(a.totalHandleSec, a.answeredCalls)
-          }))
-          .sort((x, y) => (y.answeredCalls - x.answeredCalls));
-
-        supRows.push({
-          supervisor: g.supervisor,
-          answeredCalls: g.answeredCalls,
-          totalHandleSec: g.totalHandleSec,
-          ahtSec: calcAHT(g.totalHandleSec, g.answeredCalls),
-          _agents: agentRows
-        });
-      }
-
-      supRows.sort((a, b) => (b.answeredCalls - a.answeredCalls));
-      return supRows;
-    }
-
-    function formatSupervisorChild(rowData) {
-      const agents = rowData._agents || [];
-      if (!agents.length) return `<div class="text-muted small p-2">No agents found.</div>`;
-
-      const rowsHtml = agents.map(a => `
-        <tr>
-          <td>${esc(a.agent)}</td>
-          <td class="text-end">${fmtNum(a.answeredCalls)}</td>
-          <td class="text-end">${fmtNum(a.totalHandleSec)}</td>
-          <td class="text-end">${a.ahtSec === null ? "—" : fmtNum(a.ahtSec)}</td>
-        </tr>
-      `).join("");
-
-      return `
-        <div class="p-2">
-          <table class="table table-sm table-striped table-bordered mb-0">
-            <thead>
-              <tr>
-                <th>Agent</th>
-                <th class="text-end">Answered Calls</th>
-                <th class="text-end">Total Handle Time (sec)</th>
-                <th class="text-end">AHT (sec)</th>
-              </tr>
-            </thead>
-            <tbody>${rowsHtml}</tbody>
-          </table>
-        </div>
-      `;
-    }
-
-    function renderIntervalCollapsibleBySupervisor() {
-      const statusEl = document.getElementById("statusInterval");
-
-      Papa.parse(INTERVAL_CSV + "?v=" + Date.now(), {
-        download: true,
-        header: true,
-        skipEmptyLines: true,
-        complete: function(results) {
-          const rawRows = results.data || [];
-
-          // Basic header validation (helps catch typos early)
-          const fields = results.meta.fields || [];
-          const required = [SUP_COL, AGENT_COL, ANSW_COL, HANDLE_COL];
-          const missing = required.filter(c => !fields.includes(c));
-          if (missing.length) {
-            statusEl.className = "alert alert-danger py-2 px-3 mt-3 mb-3";
-            statusEl.innerHTML =
-              `Missing required column(s) in <code>${INTERVAL_CSV}</code>: <strong>${missing.map(esc).join(", ")}</strong>`;
-            return;
-          }
-
-          const supRows = buildSupervisorGroups(rawRows);
-
-          statusEl.className = "alert alert-success py-2 px-3 mt-3 mb-3";
-          statusEl.textContent = `Loaded ${rawRows.length} interval row(s) from ${INTERVAL_CSV}. Grouped into ${supRows.length} supervisor(s).`;
-
-          // Destroy existing instance if reloading
-          if ($.fn.dataTable.isDataTable("#tblInterval")) {
-            $("#tblInterval").DataTable().destroy();
-            $("#tblInterval").empty();
-          }
-
-          const dt = new DataTable("#tblInterval", {
-            data: supRows,
-            pageLength: 25,
-            scrollX: true,
-            columns: [
-              {
-                className: "dt-control",
-                orderable: false,
-                data: null,
-                defaultContent: "+",
-                title: ""
-              },
-              { title: "Supervisor", data: "supervisor" },
-              { title: "Answered Calls", data: "answeredCalls", render: (d) => fmtNum(d), className: "text-end" },
-              { title: "Total Handle Time (sec)", data: "totalHandleSec", render: (d) => fmtNum(d), className: "text-end" },
-              { title: "AHT (sec)", data: "ahtSec", render: (d) => (d === null ? "—" : fmtNum(d)), className: "text-end" }
-            ],
-            order: [[2, "desc"]],
-            createdRow: function(row, rowData) {
-              if (rowData.ahtSec !== null && rowData.ahtSec > THRESHOLD) $(row).addClass("high-red-row");
-            }
-          });
-
-          // Toggle child rows
-          $("#tblInterval tbody").off("click", "td.dt-control");
-          $("#tblInterval tbody").on("click", "td.dt-control", function() {
-            const tr = $(this).closest("tr");
-            const row = dt.row(tr);
-
-            if (row.child.isShown()) {
-              row.child.hide();
-              tr.removeClass("dt-hasChild");
-              $(this).text("+");
-            } else {
-              row.child(formatSupervisorChild(row.data())).show();
-              tr.addClass("dt-hasChild");
-              $(this).text("−");
-            }
-          });
-        },
-        error: function(err) {
-          console.error(err);
-          statusEl.className = "alert alert-danger py-2 px-3 mt-3 mb-3";
-          statusEl.textContent = `Failed to load ${INTERVAL_CSV}: ${err.message || err}`;
-        }
-      });
-    }
-
     // Run
     setToday();
     setAsOfFromLastCommit(INTERVAL_CSV);
 
     renderOverallWithFixedGrandTotal();
-    renderIntervalCollapsibleBySupervisor();
+
+    renderCSVTable({
+      csvFile: INTERVAL_CSV,
+      tableSelector: "#tblInterval",
+      statusId: "statusInterval",
+      highlightColIndex: INTERVAL_COL_INDEX
+    });
   </script>
 </body>
 </html>

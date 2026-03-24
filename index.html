@@ -56,7 +56,7 @@
       </div>
     </div>
 
-    <!-- SECOND CARD / TABLE -->
+    <!-- SECOND CARD / TABLE (UPDATED: COLLAPSIBLE) -->
     <div class="card shadow-sm">
       <div class="card-body">
         <div class="d-flex flex-wrap align-items-end justify-content-between gap-2">
@@ -68,14 +68,30 @@
             </div>
             <div class="text-muted mt-1">Source: <code>cbhcc.csv</code></div>
           </div>
+
+          <!-- ADDED: Collapse toggle button -->
+          <button
+            class="btn btn-outline-primary btn-sm"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#intervalCollapse"
+            aria-expanded="true"
+            aria-controls="intervalCollapse"
+            id="btnIntervalToggle"
+          >
+            Collapse
+          </button>
         </div>
 
-        <div id="statusInterval" class="alert alert-secondary py-2 px-3 mt-3 mb-3">
-          Loading...
-        </div>
+        <!-- ADDED: Collapsible container -->
+        <div class="collapse show mt-3" id="intervalCollapse">
+          <div id="statusInterval" class="alert alert-secondary py-2 px-3 mb-3">
+            Loading...
+          </div>
 
-        <div class="table-responsive">
-          <table id="tblInterval" class="table table-striped table-hover table-bordered w-100"></table>
+          <div class="table-responsive">
+            <table id="tblInterval" class="table table-striped table-hover table-bordered w-100"></table>
+          </div>
         </div>
       </div>
     </div>
@@ -87,6 +103,9 @@
 
   <!-- jQuery (for DataTables integration) -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- ADDED: Bootstrap JS bundle (required for collapse) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- DataTables core + Bootstrap adapter -->
   <script src="https://cdn.datatables.net/2.0.8/js/dataTables.min.js"></script>
@@ -115,6 +134,9 @@
     // Interval table: highlight if 5th column > 490
     const INTERVAL_CSV = "cbhcc.csv";
     const INTERVAL_COL_INDEX = 4; // 5th column
+
+    // ADDED: keep a reference to the interval DataTable so we can adjust columns on expand
+    let intervalDT = null;
 
     function toNumber(x) {
       const n = Number(String(x ?? "").replace(/[^0-9.-]/g, ""));
@@ -177,7 +199,7 @@
           statusEl.className = "alert alert-success py-2 px-3 mt-3 mb-3";
           statusEl.textContent = `Loaded ${data.length} row(s) from ${csvFile}.`;
 
-          new DataTable(tableSelector, {
+          const dt = new DataTable(tableSelector, {
             data,
             columns,
             pageLength: 25,
@@ -188,6 +210,9 @@
               if (value !== null && value > THRESHOLD) $(row).addClass("high-red-row");
             }
           });
+
+          // ADDED: store interval DataTable instance for collapse expand width fix
+          if (tableSelector === "#tblInterval") intervalDT = dt;
         },
         error: function(err) {
           console.error(err);
@@ -230,7 +255,8 @@
 
           statusEl.className = "alert alert-success py-2 px-3 mt-3 mb-3";
           statusEl.textContent =
-            `Loaded ${data.length} row(s) from ${OVERALL_CSV}.` + (grandTotalRow ? " (Grand Total fixed.)" : " (No Grand Total row found.)");
+            `Loaded ${data.length} row(s) from ${OVERALL_CSV}.` +
+            (grandTotalRow ? " (Grand Total fixed.)" : " (No Grand Total row found.)");
 
           new DataTable("#tblOverall", {
             data,
@@ -263,6 +289,19 @@
       tableSelector: "#tblInterval",
       statusId: "statusInterval",
       highlightColIndex: INTERVAL_COL_INDEX
+    });
+
+    // ADDED: When expanding the collapse, force DataTables to recalc widths
+    const intervalCollapseEl = document.getElementById("intervalCollapse");
+    const btnIntervalToggle = document.getElementById("btnIntervalToggle");
+
+    intervalCollapseEl.addEventListener("shown.bs.collapse", () => {
+      btnIntervalToggle.textContent = "Collapse";
+      if (intervalDT) intervalDT.columns.adjust();
+    });
+
+    intervalCollapseEl.addEventListener("hidden.bs.collapse", () => {
+      btnIntervalToggle.textContent = "Expand";
     });
   </script>
 </body>

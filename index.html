@@ -28,25 +28,22 @@
       font-weight: 800;
     }
 
-     .btn-link{
-      display:inline-block;
-      padding:10px 12px;
-      border:1px solid #cbd5e1;
-      border-radius:10px;
-      text-decoration:none;
-      font: 14px/1.2 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      color:#0f172a;
-      background:#ffffff;
-      margin: 10px 0 12px; /* puts it above the table */
-    }
-    .btn-link:hover{ background:#f8fafc; }
-    .btn-primary{
-      border-color: rgba(29,78,216,.35);
-      background: rgba(29,78,216,.10);
-      color:#0b2f9b;
-    }
-    .btn-primary:hover{ background: rgba(29,78,216,.14); }
-    
+a.right-link{
+  float: right;
+  display: inline-block;
+  margin: -30px 0 0 0;
+  font-style: italic;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  font: 14px/1.2 ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  /*color: #0f172a;*/
+  background: #ffffff;
+}
+
+a.right-link:hover{
+  background: #f8fafc;
+}
   </style>
 </head>
 <body>
@@ -63,10 +60,8 @@
             <div class="text-muted mt-1">Source: <code>cbhccoverallAHT.csv</code></div>
           </div>
         </div>
-<a class="btn-link btn-primary"
-       href="https://cgs-m.github.io/Efficiency-Interval/?lob=beacon-cc">
-      Efficiency Interval (Beacon CC)
-    </a>
+<a class="right-link btn-primary" href="...">Efficiency Interval (Beacon CC)</a>
+<div style="clear: both;"></div>
         <div id="statusOverall" class="alert alert-secondary py-2 px-3 mt-3 mb-3">
           Loading...
         </div>

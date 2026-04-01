@@ -1,58 +1,67 @@
 ﻿LOB,Supervisor,Name,Handled,AHT,ACW Ave,Hold Ave,TR% Ave
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Demegillo, Edmar",3,850,8,5,0%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Trestiza, Geraldine",14,759,8,20,7%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","BretaÃ±a, Danica",10,670,24,14,30%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Tabunlupa, Mary Hope",13,598,20,15,7%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Ongcay, Jenny",11,553,30,20,0%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","GUEVARRA, MARK OLIVER",12,546,30,51,33%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Mifuel, Merl",19,465,30,0,26%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Espinosa, Nicole",15,432,11,49,0%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Malan, Mar",12,411,30,24,0%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Mabilog, Cherry rose",22,397,9,6,5%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Santiago, Jomer",19,378,30,3,35%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Gequilasao, Joan",18,356,30,7,6%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Poral, Mari Joy",16,336,23,12,6%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Villalon, Anj",23,282,30,2,26%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","GALILA, NATHALIE LOUISE",27,241,26,5,7%
-Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Esplana, Almera Nia",22,230,30,0,0%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Casidsid, Gelo",12,671,24,2,25%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Tugon, Jizza",12,667,27,19,8%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Basal, Niel",9,607,24,48,0%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Jaleco, Cristine",14,548,25,10,7%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Borantes, John Lester",11,526,21,15,8%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Navarez, Adrian",17,500,13,32,24%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Pomaloy, Rachel Ann",16,484,20,16,6%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Geanga, Rei Mar",21,405,13,3,0%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Sanchez, John Fritz",15,391,21,11,13%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Frio, Kevin John",17,373,8,13,28%
-Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Losaria, Nesty",18,291,30,4,21%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Dalida, Von Mennert",1,965,22,0,--
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Trestiza, Geraldine",36,869,9,61,8%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Evangelio, Herdolf",1,649,30,0,--
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","BretaÃ±a, Danica",20,597,26,36,19%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Demegillo, Edmar",16,584,17,55,6%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Ongcay, Jenny",33,534,30,57,0%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Tabunlupa, Mary Hope",39,518,19,19,5%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Espinosa, Nicole",36,459,11,85,0%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","GUEVARRA, MARK OLIVER",39,457,30,84,41%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Malan, Mar",43,449,30,94,0%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Mifuel, Merl",45,429,30,0,24%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Mabilog, Cherry rose",60,393,9,10,5%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Santiago, Jomer",55,362,30,8,27%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Gequilasao, Joan",49,334,30,15,10%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Esplana, Almera Nia",53,319,29,5,2%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Poral, Mari Joy",53,316,21,16,11%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Villalon, Anj",62,289,30,2,23%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","GALILA, NATHALIE LOUISE",68,262,27,11,6%
+Carelon Behavioral Health (Beacon CC),"Putong, Eliakim","Quanico, Jade Ann",--,--,--,0,--
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Casidsid, Gelo",24,652,21,9,25%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Tugon, Jizza",38,601,27,44,8%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Basal, Niel",25,562,18,122,19%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Borantes, John Lester",26,501,26,60,15%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Pomaloy, Rachel Ann",43,483,19,20,7%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Jaleco, Cristine",45,481,26,20,11%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Navarez, Adrian",49,470,15,60,24%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Sanchez, John Fritz",45,453,23,23,9%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Frio, Kevin John",48,420,11,30,29%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Geanga, Rei Mar",56,412,13,5,2%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Losaria, Nesty",52,327,30,9,15%
+Carelon Behavioral Health (Beacon CC),"Zaldivar, Eurik","Garcimo, Roldan",--,--,--,0,--
 Carelon Behavioral Health (Beacon CC),"Maza, Resty","Bernarte, Laurence",1,1339,26,0,0%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Galvez, Quennie Mae",13,802,7,30,8%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Ycogo, Jelyka Pearl",6,799,20,5,14%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Legario, Euboon",6,734,13,22,14%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Betito, Aljohn",14,648,13,12,14%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Espinosa, Alyza Mae",14,569,15,6,7%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Luna, Maria Chrissanti",17,506,10,16,11%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","DULALIA, JOHN MARK",12,392,21,4,8%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Linga, Hyacynth Regy",14,374,27,0,14%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Manejero, Chona",21,332,18,7,0%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Magno, Louise Thessa",20,299,20,21,20%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Coronica, Christopher",19,279,19,0,10%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Delos Santos, Louie",23,231,14,7,9%
-Carelon Behavioral Health (Beacon CC),"Maza, Resty","Rodriguez, Jydel Rose",27,173,23,41,0%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Bautista, Sunshine",9,1090,25,39,44%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Pabillaran, EderlyJoy",12,829,27,12,8%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Malones, Ednalyn",14,664,27,40,7%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Bullag, Peter John",21,514,24,10,0%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Nufable, Ann Lorraine",4,501,30,21,0%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Diama, Alma",20,477,8,0,5%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Arroyo, Judy Ann",14,472,5,0,29%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Pama, Joanna",21,444,30,17,33%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Sayco, Peachy",19,420,30,3,10%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Diaz, Mary Donna Mel",18,385,30,2,22%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Cabanus, Alpha",10,366,27,6,18%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","EspaÃ±ola, April Rose",20,362,30,8,24%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Jerusalem, Mary",18,342,15,5,33%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Empig, Gilbert",12,335,30,12,15%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","Hormillosa, Leonard",19,282,30,5,0%
-Carelon Behavioral Health (Beacon CC),"Juarez, Jero","LOSARIA, JESTER",20,179,27,0,20%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Galvez, Quennie Mae",33,789,8,47,9%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Legario, Euboon",23,720,15,30,13%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Ycogo, Jelyka Pearl",26,538,20,8,11%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Luna, Maria Chrissanti",45,526,11,26,13%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Espinosa, Alyza Mae",40,472,16,14,5%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Layag, Vernalou",3,431,23,8,0%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Linga, Hyacynth Regy",38,383,28,17,11%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","DULALIA, JOHN MARK",25,366,23,14,16%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Magno, Louise Thessa",49,335,21,39,18%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Manejero, Chona",51,334,19,9,0%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Betito, Aljohn",36,313,18,23,6%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Coronica, Christopher",31,309,23,0,6%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Delos Santos, Louie",32,279,14,42,9%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Rodriguez, Jydel Rose",64,186,24,65,0%
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Talibutab, Diane",--,--,--,0,--
+Carelon Behavioral Health (Beacon CC),"Maza, Resty","Fernandez, Pann",--,--,--,0,--
+,"Maza, Resty","Tadiaque, Jesette Moreen",--,--,--,0,--
+,"Maza, Resty","Sanz, Rutchil Szaen",--,--,--,0,--
+,"Juarez, Jero","Pabillaran, EderlyJoy",34,874,28,32,9%
+,"Juarez, Jero","Bautista, Sunshine",20,829,23,138,30%
+,"Juarez, Jero","Malones, Ednalyn",42,594,27,50,14%
+,"Juarez, Jero","Diama, Alma",29,557,8,0,3%
+,"Juarez, Jero","Nufable, Ann Lorraine",8,501,30,38,0%
+,"Juarez, Jero","Bullag, Peter John",32,461,25,19,0%
+,"Juarez, Jero","Arroyo, Judy Ann",30,432,7,3,17%
+,"Juarez, Jero","EspaÃ±ola, April Rose",33,421,30,24,24%
+,"Juarez, Jero","Sayco, Peachy",49,418,30,4,16%
+,"Juarez, Jero","Cabanus, Alpha",18,411,27,14,16%
+,"Juarez, Jero","Pama, Joanna",54,397,30,32,33%
+,"Juarez, Jero","Hormillosa, Leonard",48,388,29,10,2%
+,"Juarez, Jero","Jerusalem, Mary",50,384,14,22,28%
+,"Juarez, Jero","Diaz, Mary Donna Mel",35,359,30,41,11%
+,"Juarez, Jero","Empig, Gilbert",36,266,30,45,11%
+,"Juarez, Jero","LOSARIA, JESTER",62,189,27,0,18%
